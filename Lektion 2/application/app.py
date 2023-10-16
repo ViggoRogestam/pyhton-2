@@ -4,7 +4,8 @@ app = Flask(__name__)
 
 @app.route('/')
 def route():
-    return f"""
+    """Returnera en sida med anteckningar."""
+    page =f"""
 <!DOCTYPE html>
 <html>
     <body style="background-color:grey;">
@@ -18,3 +19,4 @@ def route():
     </body>
 </html> 
 """
+    return page
