@@ -1,6 +1,7 @@
 {% extends "layout.html" %} {% block title %}Form{% endblock %} {% block content
 %}
 <div class="container">
+  <h1 class="text-center">{{headline}}</h1>
   <div class="row p-5">
     <div class="col-1"></div>
     <div class="col-10 border p-3">
@@ -9,7 +10,11 @@
         <label for="year">Year:</label><br />
         <input type="text" id="year" name="year" /><br />
 
-        <select name="countryCode" class="form-select" aria-label="Default select example">
+        <select
+          name="countryCode"
+          class="form-select"
+          aria-label="Default select example"
+        >
           <option selected>Available Countrys</option>
           {% for row in dict_countrys %}
           <option value="{{ row['countryCode'] }}">{{ row['name'] }}</option>
