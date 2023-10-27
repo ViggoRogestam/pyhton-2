@@ -12,7 +12,8 @@
 </head>
 <body>
 
-{% block content %}this is a heading{% endblock %}
+{% block content %}<h1>{{headline}}</h1>{% endblock %}
+{{data|safe}}
 
 <!-- Bootstrap 5 JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-..." crossorigin="anonymous"></script>
