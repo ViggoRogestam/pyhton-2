@@ -1,0 +1,4 @@
+application
+dist
+docs
+tests
