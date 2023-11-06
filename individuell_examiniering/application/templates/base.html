@@ -12,7 +12,11 @@
 </head>
 <body>
 
-{% block content %}<h1>{{headline}}</h1>{% endblock %}
+{% block content %}
+<h1>{{error}}</h1>
+<h1>{{headline}}</h1>
+<p>{{date}}</p>
+{% endblock %}
 {{data|safe}}
 
 <!-- Bootstrap 5 JS -->

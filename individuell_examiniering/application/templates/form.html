@@ -6,8 +6,12 @@
 
 <!-- This is the Page content -->
 {% block content %}
+
 <!-- Skapar UI för formulär med inmatning för: dag, månad och år-->
 <div class="container">
+  <!-- instuktioner för användaren-->
+<p>Ange datum och prisklass för att se elpriser.<br>Datumet får inte vara före 2022-11-01
+  och inte längre fram i tiden än 1 dag fram i tiden</p>
     <!-- Skapar en form med action till /api och method post -->
   <form action="/api" method="post">
     <div class="row">
@@ -36,4 +40,5 @@
     </div>
   </form>
 </div>
+
 {% endblock %}
