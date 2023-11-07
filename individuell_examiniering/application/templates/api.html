@@ -1,8 +1,15 @@
-{% extends 'index.html' %}
+{% extends 'base.html' %} {% block title %}{{ headline }}{% endblock %} {% block
+content %}
+<!-- Aligns table headers to the left -->
+<style>
+  .table th {
+    text-align: left; 
+  }
+</style>
+<!-- displaus title and date and adds padding-->
+<h1 class="px-5">{{headline}}</h1>
+<p class="px-5">{{date}}</p>
+<!-- adds padding to the table -->
+<div class="px-5">{{ data|safe }}</div>
 
-{% block title %}{{ headline }}{% endblock %}
-
-
-{% block content %}
-{{data|safe}}
 {% endblock%}

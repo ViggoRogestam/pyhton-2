@@ -8,19 +8,15 @@ import datetime
 
 app = Flask(__name__)
 
-# TODO: style start page
-
 
 @app.route('/')
 def index():
-    return render_template('base.html')
+    return render_template('index.html')
 
 
 @app.route('/form')
 def form():
     return render_template('form.html')
-
-# TODO: add button to go back to form from error page
 
 
 @app.route('/api', methods=['POST'])
@@ -51,12 +47,12 @@ def api():
     except HTTPError as e:
         if e.code == 404:
             error = 'Det inmatade datumet finns inte i databasen'
-            return render_template('base.html', error=error)
+            return render_template('error.html', error=error)
         else:
             error = ('HTTP error. Status code: ', e.code)
     except URLError as e:
         error = ('URL error. Reason: ', e.reason)
-        return render_template('base.html', error=error)
+        return render_template('error.html', error=error)
     # om ingen error så fortsätt
     else:
         data = response.read()
@@ -85,9 +81,13 @@ def api():
         df_html = df.to_html(
             classes="table table-striped table-hover table-bordered table-sm", index=False)
         # Skicka med datan till template
-        return render_template('base.html', data=df_html, headline="Resultat", date=date,)
+        return render_template('api.html', data=df_html, headline="Resultat", date=date,)
 
+# Fånga 404 error och skicka tillbaka en egen sida
+@app.errorhandler(404)
+def not_found_error(e):
+    error = 'Sidan du söker finns inte'
+    return render_template('404.html', data=error), 404
 
-# TODO: http exception handling
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
