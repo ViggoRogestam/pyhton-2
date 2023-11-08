@@ -40,8 +40,8 @@ def test_form_route():
 #TODO: def test_api():
     # with app.test_request_context('/api', method='POST', data={'year': '2022', 'month': '12', 'day': '31', 'price_class': 'SE3'}):
     #     response = urllib.request(f"https://www.elprisetjustnu.se/api/v1/prices/{2022}/{12}-{31}_{SE3}.json")
-    #     assert response.status_code == 200
-    #     assert b'Resultat' in response.headline
+        assert response.status_code == 200
+        assert b'Resultat' in response.headline
         
 
 def test_catch_404():
@@ -49,6 +49,6 @@ def test_catch_404():
         html = str(response.read())
         assert "404" not in html
 
-#TODO: testa att api returnerar rätt data
-#TODO: testa att api returnerar rätt statuskod
-#TODO: testa att bara post funkar på api
+#TODO: testcase för post på api
+#TODO: testcase att se att data för visst datumn stämmer
+#TODO: göra testcase för funktionerna i app.py
