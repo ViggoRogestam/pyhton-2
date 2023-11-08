@@ -2,10 +2,8 @@ from flask import Flask
 from flask import Flask, render_template, request
 import urllib.request as urlrequest
 from urllib.error import HTTPError, URLError
-import pandas as pd
-import json
-import datetime
 from application import func
+import pandas as pd
 
 app = Flask(__name__)
 
