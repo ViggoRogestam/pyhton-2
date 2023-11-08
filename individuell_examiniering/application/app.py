@@ -5,6 +5,7 @@ from urllib.error import HTTPError, URLError
 import pandas as pd
 import json
 import datetime
+from application import func
 
 app = Flask(__name__)
 
@@ -55,31 +56,21 @@ def api():
         return render_template('error.html', error=error)
     # om ingen error så fortsätt
     else:
-        data = response.read()
-        # Gör om resultatet från json till en lista av dictionaries
-        formated_data = json.loads(data)
-
-        # Gör om formated_data till en pandas dataframe och sedan till html med hjälp av to_html()
-        df = pd.DataFrame(formated_data)
+        # gör om svaret till en pandas dataframe
+        df = func.respone_to_df(response)
 
         # Modifiera dataframen
-        # byter namn på kolumnerna
-        df.rename(columns={'SEK_per_kWh': 'Kronor/kWh',
-                  'EUR_per_kWh': 'Euro/kWh'}, inplace=True)
-        # bryter ut datum och tid från time_start
-        # skapar en variabel med valt datum
-        date_df = df['time_start'].str.split('T').str[0]
-        date = date_df[0]
-        # skapar en ny column för tid
-        df['Tid'] = df['time_start'].str.split(
-            'T').str[1].str.split('+').str[0]
-        # tar bort sekunder från tiden
-        df['Tid'] = df['Tid'].str[:5]
-        # tar bort onödiga columner
-        df.drop(columns=['time_start', 'time_end', 'EXR'], inplace=True)
+        ## byter namn på kolumnerna
+        rename_dict = {'SEK_per_kWh': 'Kronor/kWh',
+                       'EUR_per_kWh': 'Euro/kWh'}
+        func.rename_dr(df, rename_dict)
+        ## bryter ut datum och tid från time_start
+        ## skapar en variabel med valt datum
+        date = func.extract_date_from_dataframe(df)
+        ## skapar en ny column för tid och tar bort onödiga columner
+        df = func.create_time_column(df)
         # Gör om dataframet till html
-        df_html = df.to_html(
-            classes="table table-striped table-hover table-bordered table-sm", index=False)
+        df_html = func.df_to_html(df)
         # Skicka med datan till template
         return render_template('api.html', data=df_html, headline="Resultat", date=date,)
 
