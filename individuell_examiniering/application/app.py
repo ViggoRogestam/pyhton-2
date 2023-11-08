@@ -87,7 +87,7 @@ def api():
 @app.errorhandler(404)
 def not_found_error(e):
     error = 'Sidan du söker finns inte'
-    return render_template('404.html', data=error), 404
+    return render_template('404.html', data=error)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
